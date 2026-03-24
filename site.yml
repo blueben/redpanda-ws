@@ -5,6 +5,7 @@
     - name: Assign OS group
       group_by:
         key: "{{ ansible_os_family | lower }}"
+      tags: always
   roles:
     - { role: base,    tags: [base, packages] }
     - { role: aur,     tags: [aur, packages],  when: ansible_os_family == "Archlinux" }
