@@ -62,7 +62,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Install check-mode dependency
-        run: dnf install -y sudo python3-libdnf5
+        run: dnf install -y sudo util-linux python3-libdnf5
 
       - name: Bootstrap system
         run: |
