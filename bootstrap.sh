@@ -47,6 +47,17 @@ case "$OS" in
         echo "==> Installing ${missing[*]} via pacman..."
         sudo pacman -Sy --noconfirm "${missing[@]}"
       fi
+    elif command -v dnf &>/dev/null; then
+      missing=()
+      for pkg in ansible git python3; do
+        if ! command -v "$pkg" &>/dev/null; then
+          missing+=("$pkg")
+        fi
+      done
+      if [ ${#missing[@]} -gt 0 ]; then
+        echo "==> Installing ${missing[*]} via dnf..."
+        sudo dnf install -y "${missing[@]}"
+      fi
     elif command -v apt-get &>/dev/null; then
       sudo apt-get update
       missing=()
@@ -60,7 +71,7 @@ case "$OS" in
         sudo apt-get install -y "${missing[@]}"
       fi
     else
-      echo "ERROR: Unsupported Linux distribution (need pacman or apt-get)"
+      echo "ERROR: Unsupported Linux distribution (need pacman, dnf, or apt-get)"
       exit 1
     fi
     ;;
