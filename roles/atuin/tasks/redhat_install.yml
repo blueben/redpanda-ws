@@ -1,0 +1,6 @@
+---
+- name: Install atuin via official script
+  ansible.builtin.shell:
+    cmd: bash <(curl -sSL https://setup.atuin.sh)
+  args:
+    creates: "{{ ws_home }}/.atuin/bin/atuin"

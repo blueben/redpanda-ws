@@ -1,0 +1,12 @@
+---
+# Name overrides: only entries where the logical name differs from the dnf package name.
+ws_pkg_map:
+  fd: fd-find
+  python: python3
+  nodejs: nodejs
+  rust: rust
+  go: golang
+
+# RedHat-only packages (not cross-platform).
+ws_packages_redhat:
+  - "@development-tools"

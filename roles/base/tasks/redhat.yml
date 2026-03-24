@@ -1,0 +1,9 @@
+---
+- name: Install base packages (dnf)
+  ansible.builtin.dnf:
+    name: "{{ ws_pkg_map[item] | default(item) }}"
+    state: present
+    update_cache: true
+  loop: "{{ ws_packages_base + ws_packages_redhat }}"
+  become: true
+  tags: [install]
