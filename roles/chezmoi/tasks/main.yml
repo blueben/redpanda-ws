@@ -1,9 +1,12 @@
 ---
-- import_tasks: install.yml
+- name: Install chezmoi
+  ansible.builtin.import_tasks: install.yml
   tags: [install]
 
-- import_tasks: init.yml
+- name: Initialize chezmoi
+  ansible.builtin.import_tasks: init.yml
   tags: [config]
 
-- import_tasks: apply.yml
+- name: Apply chezmoi
+  ansible.builtin.import_tasks: apply.yml
   tags: [config]

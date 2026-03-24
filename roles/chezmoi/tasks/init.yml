@@ -1,10 +1,10 @@
 ---
 - name: Assert chezmoi_repo_url is set
-  assert:
+  ansible.builtin.assert:
     that: chezmoi_repo_url | length > 0
     fail_msg: "chezmoi_repo_url must be set (-e chezmoi_repo_url=...)"
 
 - name: Initialize chezmoi
-  command: "chezmoi init {{ chezmoi_init_args }} {{ chezmoi_repo_url }}"
+  ansible.builtin.command: "chezmoi init {{ chezmoi_init_args }} {{ chezmoi_repo_url }}"
   args:
     creates: "{{ ws_home }}/.local/share/chezmoi"

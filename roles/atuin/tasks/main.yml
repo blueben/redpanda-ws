@@ -1,11 +1,13 @@
 ---
-- import_tasks: install.yml
+- name: Install atuin
+  ansible.builtin.import_tasks: install.yml
   tags: [install]
 
-- import_tasks: config.yml
+- name: Configure atuin
+  ansible.builtin.import_tasks: config.yml
   tags: [config]
 
 - name: Include service tasks
-  include_tasks: "service_{{ ws_service_manager }}.yml"
+  ansible.builtin.include_tasks: "service_{{ ws_service_manager }}.yml"
   when: atuin_sync_enabled
   tags: [services]

@@ -1,5 +1,5 @@
 ---
-ws_sysctl_settings:
+sysctl_settings:
   vm.swappiness: 10
   vm.vfs_cache_pressure: 50
   net.core.rmem_max: 16777216

@@ -1,5 +1,5 @@
 ---
-ws_sysctl_settings:
+sysctl_settings:
   kern.maxfiles: 65536
   kern.maxfilesperproc: 32768
   net.inet.tcp.sendspace: 262144
