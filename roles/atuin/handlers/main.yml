@@ -1,6 +1,6 @@
 ---
 - name: restart atuin sync
-  when: ansible_os_family == "Archlinux"
+  when: ansible_facts['os_family'] == "Archlinux"
   systemd:
     name: atuin-sync.timer
     state: restarted

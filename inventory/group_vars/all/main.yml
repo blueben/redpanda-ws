@@ -1,6 +1,6 @@
 ---
-ws_user: "{{ ansible_env.USER }}"
-ws_home: "{{ ansible_env.HOME }}"
+ws_user: "{{ ansible_facts['env']['USER'] }}"
+ws_home: "{{ ansible_facts['env']['HOME'] }}"
 
 chezmoi_repo_url: ""          # override via -e chezmoi_repo_url=...
 chezmoi_init_args: "--apply"
