@@ -59,3 +59,35 @@ jobs:
               --skip-tags sysctl,chezmoi,services \
               -e '{\"ws_aur_packages\":[]}'
           "
+
+  debian-dry-run:
+    name: Debian Dry Run
+    runs-on: ubuntu-latest
+    needs: lint
+    container:
+      image: ubuntu:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y ansible git python3 sudo
+
+      - name: Install Galaxy collections
+        run: ansible-galaxy collection install -r requirements.yml
+
+      - name: Create non-root CI user
+        run: |
+          useradd -m ciuser
+          echo "ciuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+      - name: Run playbook in check mode
+        run: |
+          su - ciuser -c "
+            cd $GITHUB_WORKSPACE && \
+            ansible-playbook site.yml \
+              --check --diff \
+              --skip-tags sysctl,chezmoi,atuin,services
+          "

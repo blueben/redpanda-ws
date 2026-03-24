@@ -36,15 +36,32 @@ case "$OS" in
 
   Linux)
     echo "==> Detected Linux"
-    missing=()
-    for pkg in ansible git python; do
-      if ! command -v "$pkg" &>/dev/null; then
-        missing+=("$pkg")
+    if command -v pacman &>/dev/null; then
+      missing=()
+      for pkg in ansible git python; do
+        if ! command -v "$pkg" &>/dev/null; then
+          missing+=("$pkg")
+        fi
+      done
+      if [ ${#missing[@]} -gt 0 ]; then
+        echo "==> Installing ${missing[*]} via pacman..."
+        sudo pacman -Sy --noconfirm "${missing[@]}"
       fi
-    done
-    if [ ${#missing[@]} -gt 0 ]; then
-      echo "==> Installing ${missing[*]} via pacman..."
-      sudo pacman -Sy --noconfirm "${missing[@]}"
+    elif command -v apt-get &>/dev/null; then
+      sudo apt-get update
+      missing=()
+      for pkg in ansible git python3; do
+        if ! command -v "$pkg" &>/dev/null; then
+          missing+=("$pkg")
+        fi
+      done
+      if [ ${#missing[@]} -gt 0 ]; then
+        echo "==> Installing ${missing[*]} via apt..."
+        sudo apt-get install -y "${missing[@]}"
+      fi
+    else
+      echo "ERROR: Unsupported Linux distribution (need pacman or apt-get)"
+      exit 1
     fi
     ;;
 
