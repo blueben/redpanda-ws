@@ -1,16 +1,16 @@
 ---
 - name: Ensure LaunchAgents directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ ws_home }}/Library/LaunchAgents"
     state: directory
     mode: "0755"
 
 - name: Deploy atuin sync plist
-  copy:
+  ansible.builtin.copy:
     src: atuin-sync.plist
     dest: "{{ ws_home }}/Library/LaunchAgents/com.atuin.sync.plist"
     mode: "0644"
-  notify: restart atuin sync
+  notify: Restart atuin sync
 
 - name: Load atuin sync launch agent
   community.general.launchd:

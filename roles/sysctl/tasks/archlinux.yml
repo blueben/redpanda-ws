@@ -6,6 +6,6 @@
     sysctl_file: /etc/sysctl.d/99-redpanda.conf
     reload: true
     state: present
-  loop: "{{ ws_sysctl_settings | dict2items }}"
+  loop: "{{ sysctl_settings | dict2items }}"
   become: true
   tags: [config]

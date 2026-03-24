@@ -1,13 +1,13 @@
 ---
 - name: Ensure atuin config directory exists
-  file:
+  ansible.builtin.file:
     path: "{{ ws_home }}/.config/atuin"
     state: directory
     mode: "0755"
 
 - name: Deploy atuin config
-  template:
+  ansible.builtin.template:
     src: config.toml.j2
     dest: "{{ ws_home }}/.config/atuin/config.toml"
     mode: "0644"
-  notify: restart atuin sync
+  notify: Restart atuin sync

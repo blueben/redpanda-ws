@@ -1,0 +1,7 @@
+---
+skip_list:
+  - command-instead-of-module  # aur role intentionally uses raw commands for paru/makepkg
+  - no-changed-when            # aur role has custom changed_when logic
+
+exclude_paths:
+  - .git/
