@@ -1,0 +1,3 @@
+---
+ws_pkg_manager: apt
+ws_service_manager: systemd

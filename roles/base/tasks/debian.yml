@@ -1,0 +1,9 @@
+---
+- name: Install base packages (apt)
+  ansible.builtin.apt:
+    name: "{{ ws_pkg_map[item] | default(item) }}"
+    state: present
+    update_cache: true
+  loop: "{{ ws_packages_base + ws_packages_debian }}"
+  become: true
+  tags: [install]

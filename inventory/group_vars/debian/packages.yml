@@ -1,0 +1,13 @@
+---
+# Name overrides: only entries where the logical name differs from the apt package name.
+ws_pkg_map:
+  fd: fd-find
+  python: python3
+  nodejs: nodejs
+  rust: rustc
+  go: golang
+
+# Debian-only packages (not cross-platform).
+ws_packages_debian:
+  - build-essential
+  - apt-transport-https

@@ -1,0 +1,11 @@
+---
+- name: Apply sysctl settings (Linux)
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    sysctl_file: /etc/sysctl.d/99-redpanda.conf
+    reload: true
+    state: present
+  loop: "{{ sysctl_settings | dict2items }}"
+  become: true
+  tags: [config]

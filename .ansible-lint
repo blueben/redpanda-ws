@@ -2,6 +2,7 @@
 skip_list:
   - command-instead-of-module  # aur role intentionally uses raw commands for paru/makepkg
   - no-changed-when            # aur role has custom changed_when logic
+  - risky-shell-pipe           # chezmoi/atuin install scripts use curl | sh intentionally
 
 exclude_paths:
   - .git/
