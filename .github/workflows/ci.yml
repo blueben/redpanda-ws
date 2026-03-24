@@ -37,24 +37,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Initialize pacman and install dependencies
+      - name: Bootstrap system
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm ansible git python sudo
-
-      - name: Install Galaxy collections
-        run: ansible-galaxy collection install -r requirements.yml
-
-      - name: Create non-root CI user
-        run: |
+          pacman -S --noconfirm sudo
           useradd -m ciuser
           echo "ciuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-      - name: Run playbook in check mode
-        run: |
           su - ciuser -c "
             cd $GITHUB_WORKSPACE && \
-            ansible-playbook site.yml \
+            ./bootstrap.sh --no-ask-pass \
               --check --diff \
               --skip-tags sysctl,chezmoi,services \
               -e '{\"ws_aur_packages\":[]}'
@@ -70,22 +61,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Install dependencies
-        run: dnf install -y ansible git python3 python3-libdnf5 sudo
+      - name: Install check-mode dependency
+        run: dnf install -y sudo python3-libdnf5
 
-      - name: Install Galaxy collections
-        run: ansible-galaxy collection install -r requirements.yml
-
-      - name: Create non-root CI user
+      - name: Bootstrap system
         run: |
           useradd -m ciuser
           echo "ciuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-      - name: Run playbook in check mode
-        run: |
           su - ciuser -c "
             cd $GITHUB_WORKSPACE && \
-            ansible-playbook site.yml \
+            ./bootstrap.sh --no-ask-pass \
               --check --diff \
               --skip-tags sysctl,chezmoi,atuin,services
           "
@@ -100,24 +85,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Install dependencies
+      - name: Install check-mode dependency
         run: |
           apt-get update
-          apt-get install -y ansible git python3 python3-apt sudo
+          apt-get install -y sudo python3-apt
 
-      - name: Install Galaxy collections
-        run: ansible-galaxy collection install -r requirements.yml
-
-      - name: Create non-root CI user
+      - name: Bootstrap system
         run: |
           useradd -m ciuser
           echo "ciuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-      - name: Run playbook in check mode
-        run: |
           su - ciuser -c "
             cd $GITHUB_WORKSPACE && \
-            ansible-playbook site.yml \
+            ./bootstrap.sh --no-ask-pass \
               --check --diff \
               --skip-tags sysctl,chezmoi,atuin,services
           "
