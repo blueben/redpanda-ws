@@ -8,7 +8,7 @@
       tags: always
   roles:
     - { role: base,    tags: [base, packages] }
-    - { role: aur,     tags: [aur, packages],  when: ansible_facts['os_family'] == "Archlinux" }
+    - { role: aur,     tags: [aur, packages],  when: "ansible_facts['os_family'] == 'Archlinux'" }
     - { role: dev,     tags: [dev, packages] }
     - { role: sysctl,  tags: [sysctl, tuning] }
     - { role: chezmoi, tags: [chezmoi, dotfiles] }
