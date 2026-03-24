@@ -26,14 +26,26 @@ case "$OS" in
       eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
 
-    echo "==> Installing ansible and git via Homebrew..."
-    brew install ansible git
+    for pkg in ansible git; do
+      if ! command -v "$pkg" &>/dev/null; then
+        echo "==> Installing $pkg via Homebrew..."
+        brew install "$pkg"
+      fi
+    done
     ;;
 
   Linux)
     echo "==> Detected Linux"
-    echo "==> Installing ansible, git, and python via pacman..."
-    sudo pacman -Sy --noconfirm ansible git python
+    missing=()
+    for pkg in ansible git python; do
+      if ! command -v "$pkg" &>/dev/null; then
+        missing+=("$pkg")
+      fi
+    done
+    if [ ${#missing[@]} -gt 0 ]; then
+      echo "==> Installing ${missing[*]} via pacman..."
+      sudo pacman -Sy --noconfirm "${missing[@]}"
+    fi
     ;;
 
   *)
