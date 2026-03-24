@@ -57,5 +57,5 @@ jobs:
             ansible-playbook site.yml \
               --check --diff \
               --skip-tags sysctl,chezmoi,services \
-              -e ws_aur_packages=[]
+              -e '{\"ws_aur_packages\":[]}'
           "
