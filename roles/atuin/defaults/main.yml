@@ -1,0 +1,7 @@
+---
+atuin_sync_enabled: true
+atuin_sync_interval: 3600
+atuin_sync_address: "https://api.atuin.sh"
+atuin_search_mode: "prefix"
+atuin_filter_mode: "global"
+atuin_style: "compact"

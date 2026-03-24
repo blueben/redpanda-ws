@@ -1,0 +1,6 @@
+[Unit]
+Description=Atuin history sync
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/atuin sync

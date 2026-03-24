@@ -1,0 +1,8 @@
+---
+- name: Install base packages (pacman)
+  community.general.pacman:
+    name: "{{ ws_pkg_map[item] | default(item) }}"
+    state: present
+  loop: "{{ ws_packages_base + ws_packages_archlinux }}"
+  become: true
+  tags: [install]

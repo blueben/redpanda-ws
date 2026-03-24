@@ -1,0 +1,12 @@
+---
+# Name overrides: only entries where the logical name differs from the homebrew formula.
+ws_pkg_map:
+  python: python@3
+  nodejs: node
+  rust: rustup
+
+# Homebrew casks (GUI applications).
+ws_homebrew_casks:
+  - visual-studio-code
+  - iterm2
+  - rectangle

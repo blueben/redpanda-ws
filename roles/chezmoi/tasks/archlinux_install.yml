@@ -1,0 +1,6 @@
+---
+- name: Install chezmoi (pacman)
+  community.general.pacman:
+    name: chezmoi
+    state: present
+  become: true

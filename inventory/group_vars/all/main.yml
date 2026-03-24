@@ -1,0 +1,9 @@
+---
+ws_user: "{{ ansible_env.USER }}"
+ws_home: "{{ ansible_env.HOME }}"
+
+chezmoi_repo_url: ""          # override via -e chezmoi_repo_url=...
+chezmoi_init_args: "--apply"
+
+atuin_sync_enabled: true
+atuin_sync_interval: 3600

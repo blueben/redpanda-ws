@@ -1,0 +1,7 @@
+---
+- name: Install base packages (homebrew)
+  community.general.homebrew:
+    name: "{{ ws_pkg_map[item] | default(item) }}"
+    state: present
+  loop: "{{ ws_packages_base }}"
+  tags: [install]

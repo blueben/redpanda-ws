@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - name: Assign OS group
+      group_by:
+        key: "{{ ansible_os_family | lower }}"
+  roles:
+    - { role: base,    tags: [base, packages] }
+    - { role: aur,     tags: [aur, packages],  when: ansible_os_family == "Archlinux" }
+    - { role: dev,     tags: [dev, packages] }
+    - { role: sysctl,  tags: [sysctl, tuning] }
+    - { role: chezmoi, tags: [chezmoi, dotfiles] }
+    - { role: atuin,   tags: [atuin, services] }

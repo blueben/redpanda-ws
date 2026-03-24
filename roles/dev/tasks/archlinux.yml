@@ -1,0 +1,8 @@
+---
+- name: Install dev packages (pacman)
+  community.general.pacman:
+    name: "{{ ws_pkg_map[item] | default(item) }}"
+    state: present
+  loop: "{{ ws_packages_dev }}"
+  become: true
+  tags: [install]

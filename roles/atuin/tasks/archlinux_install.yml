@@ -1,0 +1,6 @@
+---
+- name: Install atuin (pacman)
+  community.general.pacman:
+    name: atuin
+    state: present
+  become: true

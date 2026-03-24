@@ -1,0 +1,26 @@
+---
+# Cross-platform logical package names.
+# OS-specific name overrides live in group_vars/{archlinux,darwin}/packages.yml.
+
+ws_packages_base:
+  - git
+  - curl
+  - wget
+  - ripgrep
+  - fd
+  - jq
+  - fzf
+  - tree
+  - unzip
+  - htop
+  - tmux
+  - zsh
+
+ws_packages_dev:
+  - nodejs
+  - python
+  - go
+  - rust
+  - make
+  - cmake
+  - shellcheck

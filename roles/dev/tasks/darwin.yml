@@ -1,0 +1,14 @@
+---
+- name: Install dev packages (homebrew)
+  community.general.homebrew:
+    name: "{{ ws_pkg_map[item] | default(item) }}"
+    state: present
+  loop: "{{ ws_packages_dev }}"
+  tags: [install]
+
+- name: Install homebrew casks
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ ws_homebrew_casks | default([]) }}"
+  tags: [install]

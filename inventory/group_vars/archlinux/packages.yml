@@ -1,0 +1,16 @@
+---
+# Arch/CachyOS-specific package settings.
+
+# Name overrides: only entries where the logical name differs from the pacman name.
+ws_pkg_map:
+  python: python
+  nodejs: nodejs
+  rust: rust
+  go: go
+
+# Arch-only packages (not cross-platform).
+ws_packages_archlinux:
+  - base-devel
+
+# AUR packages installed via paru.
+ws_aur_packages: []

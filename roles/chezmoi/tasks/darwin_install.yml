@@ -1,0 +1,5 @@
+---
+- name: Install chezmoi (homebrew)
+  community.general.homebrew:
+    name: chezmoi
+    state: present

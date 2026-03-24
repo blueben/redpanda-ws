@@ -1,0 +1,32 @@
+---
+- name: Check if paru is installed
+  command: which paru
+  register: paru_check
+  changed_when: false
+  failed_when: false
+
+- name: Install paru
+  when: paru_check.rc != 0
+  block:
+    - name: Clone paru-bin
+      git:
+        repo: https://aur.archlinux.org/paru-bin.git
+        dest: /tmp/paru-bin
+        depth: 1
+
+    - name: Build and install paru
+      command: makepkg -si --noconfirm
+      args:
+        chdir: /tmp/paru-bin
+
+    - name: Clean up paru build dir
+      file:
+        path: /tmp/paru-bin
+        state: absent
+
+- name: Install AUR packages
+  command: "paru -S --noconfirm --needed {{ item }}"
+  loop: "{{ ws_aur_packages }}"
+  register: aur_result
+  changed_when: "'there is nothing to do' not in aur_result.stdout"
+  tags: [install]
