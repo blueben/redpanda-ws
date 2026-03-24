@@ -65,6 +65,6 @@ echo "==> Installing Ansible collections..."
 ansible-galaxy collection install -r "$SCRIPT_DIR/requirements.yml"
 
 echo "==> Running playbook..."
-ansible-playbook "$SCRIPT_DIR/site.yml" "$@"
+ansible-playbook "$SCRIPT_DIR/site.yml" -K "$@"
 
 echo "==> Bootstrap complete."
