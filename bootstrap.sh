@@ -4,11 +4,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Parse --no-ask-pass flag before passing args to ansible-playbook
-ASK_PASS="-K"
+NO_ASK_PASS=false
 PASSTHROUGH_ARGS=()
 for arg in "$@"; do
   if [ "$arg" = "--no-ask-pass" ]; then
-    ASK_PASS=""
+    NO_ASK_PASS=true
   else
     PASSTHROUGH_ARGS+=("$arg")
   fi
@@ -104,6 +104,11 @@ echo "==> Installing Ansible collections..."
 ansible-galaxy collection install -r "$SCRIPT_DIR/requirements.yml"
 
 echo "==> Running playbook..."
-ansible-playbook "$SCRIPT_DIR/site.yml" $ASK_PASS "${PASSTHROUGH_ARGS[@]}"
+PLAYBOOK_ARGS=("$SCRIPT_DIR/site.yml")
+if [ "$NO_ASK_PASS" = false ]; then
+  PLAYBOOK_ARGS+=("-K")
+fi
+PLAYBOOK_ARGS+=("${PASSTHROUGH_ARGS[@]}")
+ansible-playbook "${PLAYBOOK_ARGS[@]}"
 
 echo "==> Bootstrap complete."

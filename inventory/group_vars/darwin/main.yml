@@ -1,3 +1,4 @@
 ---
 ws_pkg_manager: homebrew
 ws_service_manager: launchd
+atuin_bin_path: /opt/homebrew/bin/atuin
