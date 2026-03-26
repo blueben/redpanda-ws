@@ -9,23 +9,30 @@
   when: aur_paru_check.rc != 0
   block:
     - name: Clone paru-bin
-      ansible.builtin.git: # noqa: latest[git]
+      ansible.builtin.git:
         repo: https://aur.archlinux.org/paru-bin.git
-        dest: /tmp/paru-bin
+        dest: "{{ ansible_facts['env']['HOME'] }}/.cache/paru-build"
+        version: 92a55429afbec4fceeb2cef843245105307444d2
         depth: 1
 
     - name: Build and install paru
       ansible.builtin.command: makepkg -si --noconfirm
       args:
-        chdir: /tmp/paru-bin
+        chdir: "{{ ansible_facts['env']['HOME'] }}/.cache/paru-build"
 
     - name: Clean up paru build dir
       ansible.builtin.file:
-        path: /tmp/paru-bin
+        path: "{{ ansible_facts['env']['HOME'] }}/.cache/paru-build"
         state: absent
 
 - name: Install AUR packages
-  ansible.builtin.command: "paru -S --noconfirm --needed {{ item }}"
+  ansible.builtin.command:
+    argv:
+      - paru
+      - -S
+      - --noconfirm
+      - --needed
+      - "{{ item }}"
   loop: "{{ ws_aur_packages }}"
   register: aur_result
   changed_when: "'there is nothing to do' not in aur_result.stdout"
