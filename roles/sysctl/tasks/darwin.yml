@@ -1,6 +1,10 @@
 ---
 - name: Apply sysctl settings (macOS)
-  ansible.builtin.command: "sysctl -w {{ item.key }}={{ item.value }}"
+  ansible.builtin.command:
+    argv:
+      - sysctl
+      - -w
+      - "{{ item.key }}={{ item.value }}"
   loop: "{{ sysctl_settings | dict2items }}"
   become: true
   changed_when: true

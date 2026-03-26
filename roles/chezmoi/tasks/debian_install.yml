@@ -1,7 +1,18 @@
 ---
+- name: Download chezmoi install script
+  ansible.builtin.get_url:
+    url: https://get.chezmoi.io
+    dest: /tmp/chezmoi-install.sh
+    mode: "0755"
+  when: not ansible_check_mode
+
 - name: Install chezmoi via official script
-  ansible.builtin.shell:
-    cmd: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
+  ansible.builtin.command: /tmp/chezmoi-install.sh -b /usr/local/bin
   args:
     creates: /usr/local/bin/chezmoi
   become: true
+
+- name: Clean up chezmoi install script
+  ansible.builtin.file:
+    path: /tmp/chezmoi-install.sh
+    state: absent
