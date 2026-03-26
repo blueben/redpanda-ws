@@ -5,6 +5,10 @@
     fail_msg: "chezmoi_repo_url must be set (-e chezmoi_repo_url=...)"
 
 - name: Initialize chezmoi
-  ansible.builtin.command: "chezmoi init {{ chezmoi_init_args }} {{ chezmoi_repo_url }}"
-  args:
+  ansible.builtin.command:
+    argv:
+      - chezmoi
+      - init
+      - "{{ chezmoi_init_args }}"
+      - "{{ chezmoi_repo_url }}"
     creates: "{{ ws_home }}/.local/share/chezmoi"
