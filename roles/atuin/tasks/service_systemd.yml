@@ -6,8 +6,8 @@
     mode: "0755"
 
 - name: Deploy atuin sync service unit
-  ansible.builtin.copy:
-    src: atuin-sync.service
+  ansible.builtin.template:
+    src: atuin-sync.service.j2
     dest: "{{ ws_home }}/.config/systemd/user/atuin-sync.service"
     mode: "0644"
   notify: Restart atuin sync

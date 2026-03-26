@@ -6,8 +6,8 @@
     mode: "0755"
 
 - name: Deploy atuin sync plist
-  ansible.builtin.copy:
-    src: atuin-sync.plist
+  ansible.builtin.template:
+    src: atuin-sync.plist.j2
     dest: "{{ ws_home }}/Library/LaunchAgents/com.atuin.sync.plist"
     mode: "0644"
   notify: Restart atuin sync

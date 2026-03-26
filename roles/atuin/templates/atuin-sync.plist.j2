@@ -6,11 +6,11 @@
     <string>com.atuin.sync</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/bin/atuin</string>
+        <string>{{ atuin_bin_path }}</string>
         <string>sync</string>
     </array>
     <key>StartInterval</key>
-    <integer>3600</integer>
+    <integer>{{ atuin_sync_interval }}</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>

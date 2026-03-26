@@ -1,7 +1,14 @@
 ---
 - name: Restart atuin sync
-  when: ansible_facts['os_family'] == "Archlinux"
+  when: ws_service_manager == "systemd"
   ansible.builtin.systemd_service:
     name: atuin-sync.timer
     state: restarted
     scope: user
+
+- name: Restart atuin sync launchd
+  listen: Restart atuin sync
+  when: ws_service_manager == "launchd"
+  community.general.launchd:
+    name: com.atuin.sync
+    state: restarted

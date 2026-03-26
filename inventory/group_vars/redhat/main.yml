@@ -1,3 +1,4 @@
 ---
 ws_pkg_manager: dnf
 ws_service_manager: systemd
+atuin_bin_path: "{{ ws_home }}/.atuin/bin/atuin"

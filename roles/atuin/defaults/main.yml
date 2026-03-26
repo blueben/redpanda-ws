@@ -1,4 +1,5 @@
 ---
+atuin_bin_path: /usr/bin/atuin
 atuin_sync_enabled: true
 atuin_sync_interval: 3600
 atuin_sync_address: "https://api.atuin.sh"
